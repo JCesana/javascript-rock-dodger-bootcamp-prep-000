@@ -95,10 +95,10 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      
-     rock.style.top = `${top += 2}px`;
      
-     if (top < 400) {
-      window.requestAnimationFrame(moveRock); 
+     
+     else if (top < 380) {
+      rock.style.top = `${top += 2}px`;
      }
      
     /**
