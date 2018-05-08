@@ -147,14 +147,14 @@ function moveDodger(e) {
    */
    
    if (e.which === 37) {
-     console.log(DODGER.style.left);
+     // console.log(DODGER.style.left);
      e.preventDefault();
      e.stopPropagation();
      moveDodgerLeft();
    }
    
    if (e.which === 39) {
-     console.log(DODGER.style.left);
+     // console.log(DODGER.style.left);
      e.preventDefault();
      e.stopPropagation();
      moveDodgerRight();
