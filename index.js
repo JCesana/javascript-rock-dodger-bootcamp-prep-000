@@ -29,12 +29,12 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = dodgerLeftEdge + 40;
+    const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockLeftEdge + 20;
+    const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
     if ( (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
          (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
@@ -86,7 +86,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (window.checkCollision(rock) === true) {
+     if (window.checkCollision === true) {
        return endGame();
      }
 
@@ -95,15 +95,17 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      
-     else if (rock.style.top < (GAME_HEIGHT - 20)) {
-       rock.style.top = `${top += 2}px`; 
+     rock.style.top = `${top += 2}px`;
+     
+     if (top < 400) {
+      window.requestAnimationFrame(moveRock); 
      }
      
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     else {
+     if (rock.style.top >= GAME_HEIGHT) {
        rock.remove();
        console.log('rock removed');
      }
@@ -129,8 +131,8 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
-  window.removeEventListener('keydown', moveDodger);
+  gameInterval = null;
+  window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!");
 }
 
@@ -145,14 +147,14 @@ function moveDodger(e) {
    */
    
    if (e.which === 37) {
-     // console.log(DODGER.style.left);
+     console.log(DODGER.style.left);
      e.preventDefault();
      e.stopPropagation();
      moveDodgerLeft();
    }
    
    if (e.which === 39) {
-     // console.log(DODGER.style.left);
+     console.log(DODGER.style.left);
      e.preventDefault();
      e.stopPropagation();
      moveDodgerRight();
