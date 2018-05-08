@@ -87,7 +87,7 @@ function createRock(x) {
      * we should call endGame()
      */
      if (window.checkCollision(rock) === true) {
-       endGame();
+       return endGame();
      }
 
     /**
